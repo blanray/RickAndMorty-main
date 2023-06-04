@@ -1,4 +1,4 @@
-import { get } from "../utilidades/clienteAPI.js";
+//import { get } from "../utilidades/clienteAPI.js";
 import { useState, useEffect } from "react";
 import { useNavigate, Navigate, useParams } from "react-router-dom";
 import "./DetallePersonaje.css";
@@ -25,21 +25,21 @@ export const DetallePersonaje = () => {
 
     data.forEach((temp) => {
       if (temp.id == personajeId) {
-        console.log("El id es " + temp.id);
+        console.log("El id coincide: " + temp.id + " y " + personajeId);
         setPersonaje(temp.data());
       }
     });
   }
 
-  const getPersonajes = async () => {
-    const data = await getDocs(personajeCollection);
-    setPersonaje(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-  };
+  // const getPersonajes = async () => {
+  //   const data = await getDocs(personajeCollection);
+  //   setPersonaje(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+  // };
 
   const deletePersonaje = async (id) => {
     const personajeDoc = doc(db, "RaM", String(id));
     await deleteDoc(personajeDoc);
-    console.log("Borre el id: " + id)
+    console.log("Borre el id: " + id);
     navigate("/");
   };
 
@@ -93,7 +93,7 @@ export const DetallePersonaje = () => {
         </p>
 
         <div className="container-fluid col-md3">
-          <Link to={`/personaje/${personaje.id}`} className="btn btn-dark">
+          <Link to={`/editar/${personajeId}`} className="btn btn-dark">
             <i className="fa-sharp fa-solid fa-pencil"></i>
           </Link>
           <button
